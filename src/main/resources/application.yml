@@ -1,1 +1,49 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
 
+spring:
+  application:
+    name: credit-account
+  jpa:
+#    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#        show_sql: true
+#        format_sql: true
+  jmx:
+    enabled: false
+  datasource:
+    url: jdbc:mysql://mysql_db:3306/dbaccounts?allowPublicKeyRetrieval=true&sslMode=DISABLED&useSSL=false&serverTimezone=UTC
+    username: admin
+    password: admin
+
+---
+spring:
+  application:
+    name: credit-account
+  config:
+    activate:
+      on-profile: test
+  jpa:
+#    show-sql: false
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+#        show_sql: true
+#        format_sql: true
+  datasource:
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: sa
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

@@ -28,7 +28,7 @@ public class SwaggerConfig {
 	private ApiInfo apiEndPointsInfo() {
 		return new ApiInfoBuilder().title("credit-account")
 				.description("Demo project for Spring Boot.")
-	            .version("0.0.1-SNAPSHOT")
-	            .build();
+				.version("0.0.1-SNAPSHOT")
+				.build();
 	}
 }

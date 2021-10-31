@@ -1,0 +1,28 @@
+version: '3.4'
+services:
+
+    mysql_db:
+        image: mysql:5.7
+        container_name: mysql_db
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: admin
+            MYSQL_DATABASE: dbaccounts
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: admin
+        volumes:
+#           - ./mysql/storage:/var/lib/mysql
+            - ./mysql/initdb:/docker-entrypoint-initdb.d
+
+    credit-account:
+        build:
+            dockerfile: ./Dockerfile
+            context: .
+        image: rpsampaio/credit-account:1.0
+        container_name: credit-account
+        restart: on-failure
+        ports:
+            - "8080:8080"
+        depends_on:
+            - mysql_db
