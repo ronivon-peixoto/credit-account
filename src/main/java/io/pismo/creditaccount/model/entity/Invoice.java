@@ -17,6 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.modelmapper.ModelMapper;
+
+import io.pismo.creditaccount.data.vo.InvoiceVO;
 import io.pismo.creditaccount.model.enums.InvoiceStatus;
 import lombok.Data;
 
@@ -49,4 +52,7 @@ public class Invoice {
 	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Transaction> transactions;
 
+	public static Invoice create(InvoiceVO invoiceVO) {
+		return new ModelMapper().map(invoiceVO, Invoice.class);
+	}
 }

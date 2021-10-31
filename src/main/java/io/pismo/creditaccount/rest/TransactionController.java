@@ -12,29 +12,29 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import io.pismo.creditaccount.data.vo.AccountVO;
-import io.pismo.creditaccount.data.vo.form.AccountFormVO;
-import io.pismo.creditaccount.service.AccountService;
+import io.pismo.creditaccount.data.vo.TransactionVO;
+import io.pismo.creditaccount.data.vo.form.TransactionFormVO;
+import io.pismo.creditaccount.service.TransactionService;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/v1/accounts")
-public class AccountController {
+@RequestMapping("/v1/transactions")
+public class TransactionController {
 
-	private final AccountService accountService;
+	private final TransactionService transactionService;
 
 	@GetMapping("{id}")
-	public AccountVO findById(@PathVariable Long id) {
-		return accountService.findById(id)
-				.map(AccountVO::create)
+	public TransactionVO findById(@PathVariable Long id) {
+		return transactionService.findById(id)
+				.map(TransactionVO::create)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro não encontrado!"));
 	}
 
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public AccountVO save(@Valid @RequestBody AccountFormVO form) {
-		return AccountVO.create(accountService.save(form));
-	}
+    @ResponseStatus(HttpStatus.CREATED)
+    public TransactionVO save(@Valid @RequestBody TransactionFormVO form) {
+        return TransactionVO.create(transactionService.save(form));
+    }
 
 }

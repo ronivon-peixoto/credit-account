@@ -17,6 +17,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import org.modelmapper.ModelMapper;
+
+import io.pismo.creditaccount.data.vo.InvoiceVO;
+import io.pismo.creditaccount.data.vo.TransactionVO;
 import io.pismo.creditaccount.model.enums.TransactionType;
 import lombok.Data;
 
@@ -62,4 +66,7 @@ public class Transaction {
 		setEventDate(LocalDateTime.now());
 	}
 
+	public static Transaction create(TransactionVO transactionVO) {
+		return new ModelMapper().map(transactionVO, Transaction.class);
+	}
 }
