@@ -15,28 +15,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.persistence.Table;
 
 import io.pismo.creditaccount.model.enums.InvoiceStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@Table(name = "invoice")
 public class Invoice {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
 	private Account account;
@@ -54,7 +46,6 @@ public class Invoice {
 	@Column(name = "payment_due", nullable = false, precision = 15, scale = 2)
 	private BigDecimal paymentDue;
 
-	@JsonManagedReference
 	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Transaction> transactions;
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import io.pismo.creditaccount.model.entity.Account;
+import io.pismo.creditaccount.data.vo.AccountVO;
 import io.pismo.creditaccount.model.repository.AccountRepository;
 import lombok.AllArgsConstructor;
 
@@ -19,9 +19,10 @@ public class AccountController {
 	private final AccountRepository repository;
 
 	@GetMapping("{id}")
-	public Account acharPorId(@PathVariable Long id) {
+	public AccountVO acharPorId(@PathVariable Long id) {
 		return repository
 				.findById(id)
+				.map(AccountVO::create)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 

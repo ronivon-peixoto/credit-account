@@ -6,18 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.modelmapper.ModelMapper;
+
+import io.pismo.creditaccount.data.vo.CardVO;
 import io.pismo.creditaccount.model.converter.BooleanToStringConverter;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@Table(name = "card")
 public class Card {
 
 	@Id
@@ -30,5 +29,9 @@ public class Card {
 	@Convert(converter = BooleanToStringConverter.class)
 	@Column(name = "is_active", nullable = false, length = 1)
 	private Boolean isActive;
+
+	public static Card create(CardVO cardVO) {
+		return new ModelMapper().map(cardVO, Card.class);
+	}
 
 }

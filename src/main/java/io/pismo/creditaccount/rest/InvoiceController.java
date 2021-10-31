@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import io.pismo.creditaccount.model.entity.Invoice;
+import io.pismo.creditaccount.data.vo.InvoiceVO;
 import io.pismo.creditaccount.model.repository.InvoiceRepository;
 import lombok.AllArgsConstructor;
 
@@ -19,9 +19,10 @@ public class InvoiceController {
 	private final InvoiceRepository repository;
 
 	@GetMapping("{id}")
-	public Invoice acharPorId(@PathVariable Long id) {
+	public InvoiceVO acharPorId(@PathVariable Long id) {
 		return repository
 				.findById(id)
+				.map(InvoiceVO::create)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 

@@ -10,18 +10,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+import org.modelmapper.ModelMapper;
+
+import io.pismo.creditaccount.data.vo.AccountVO;
 import io.pismo.creditaccount.model.converter.BooleanToStringConverter;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@Table(name = "account")
 public class Account {
 
 	@Id
@@ -45,4 +44,7 @@ public class Account {
 	@Column(name = "is_active", nullable = false, length = 1)
 	private Boolean isActive;
 
+	public static Account create(AccountVO accountVO) {
+		return new ModelMapper().map(accountVO, Account.class);
+	}
 }

@@ -15,32 +15,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.Table;
 
 import io.pismo.creditaccount.model.enums.TransactionType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@Table(name = "transaction")
 public class Transaction {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
 	private Account account;
 
-	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "invoice_id", referencedColumnName = "id", nullable = false)
 	private Invoice invoice;
@@ -49,7 +41,6 @@ public class Transaction {
 	@Column(name = "operation_type", nullable = false, length = 20)
 	private TransactionType type;
 
-	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name = "card_id", referencedColumnName = "id", nullable = false)
 	private Card card;
