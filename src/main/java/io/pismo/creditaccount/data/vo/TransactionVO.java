@@ -2,7 +2,6 @@ package io.pismo.creditaccount.data.vo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.modelmapper.ModelMapper;
@@ -22,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonPropertyOrder({ "id", "account", "invoice", "type", "card", "description", "amount", "eventDate", "dueDate" })
+@JsonPropertyOrder({ "id", "account", "type", "description", "amount", "eventDate" })
 public class TransactionVO implements Serializable {
 
 	private static final long serialVersionUID = 8105622604027745349L;
@@ -32,13 +31,7 @@ public class TransactionVO implements Serializable {
 	@JsonBackReference
 	private AccountVO account;
 
-	@JsonBackReference
-	private InvoiceVO invoice;
-
 	private TransactionType type;
-
-	@JsonBackReference
-	private CardVO card;
 
 	private String description;
 
@@ -46,9 +39,6 @@ public class TransactionVO implements Serializable {
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime eventDate;
-
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-	private LocalDate dueDate;
 
 	public static TransactionVO create(Transaction transaction) {
 		return new ModelMapper().map(transaction, TransactionVO.class);

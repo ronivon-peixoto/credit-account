@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -49,7 +50,10 @@ public class Invoice {
 	@Column(name = "payment_due", nullable = false, precision = 15, scale = 2)
 	private BigDecimal paymentDue;
 
-	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinTable(name = "invoice_has_transactions", 
+		joinColumns = { @JoinColumn(name = "invoice_id") }, 
+		inverseJoinColumns = { @JoinColumn(name = "transaction_id") })
 	private List<Transaction> transactions;
 
 	public static Invoice create(InvoiceVO invoiceVO) {
