@@ -80,10 +80,10 @@ docker-compose up -d
 ## End-points relacionados com a conta do usuário (account)
 
 #### [ POST ] /v1/accounts
-O endpoint abaixo é responsável pela criação da conta/cartão do usuário.
+Este endpoint é responsável pela criação da conta/cartão do usuário.
 
 ```json
-Request Body {
+{ // Request Body
   "docNumber": "29645636086",
   "creditLimit": 10000.00,
   "withdrawalLimit": 1000.00,
@@ -92,7 +92,7 @@ Request Body {
  ```
  
 ```json
-Response Body {
+{ // Response Body
   "id": 1,
   "docNumber": "29645636086",
   "creditLimit": 10000,
