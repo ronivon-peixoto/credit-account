@@ -41,8 +41,8 @@ public class TransactionValidator implements ConstraintValidator<TransactionVali
 		}
 
 		// DESCRIPTION
-		if (form.getDescription() != null && form.getDescription().length() > 50) {
-			addConstraintViolation("O campo description pode conter até 50 caracteres.", context);
+		if (isEmpty(form.getDescription()) || form.getDescription().length() > 50) {
+			addConstraintViolation("O campo description deve ser informado, com até 50 caracteres.", context);
 			retorno = Boolean.FALSE;
 		}
 

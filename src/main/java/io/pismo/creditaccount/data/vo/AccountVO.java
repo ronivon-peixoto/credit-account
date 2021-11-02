@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonPropertyOrder({ "id", "docNumber", "creditLimit", "withdrawalLimit", "card", "isActive" })
+@JsonPropertyOrder({ "id", "docNumber", "creditLimit", "withdrawalLimit", "invoiceClosingDay", "card", "isActive" })
 public class AccountVO implements Serializable {
 
 	private static final long serialVersionUID = 5570856633046067283L;
@@ -29,6 +29,8 @@ public class AccountVO implements Serializable {
 	private BigDecimal creditLimit;
 
 	private BigDecimal withdrawalLimit;
+
+	private Integer invoiceClosingDay;
 
 	private CardVO card;
 

@@ -32,7 +32,7 @@ public class InvoiceController {
 	public InvoiceVO processByAccount(@PathVariable Long accountId) {
 		return accountService.findById(accountId)
 				.map(account -> {
-					Invoice invoice = invoiceService.processInvoicesByAccount(account);
+					Invoice invoice = invoiceService.processInvoiceByAccount(account);
 					return InvoiceVO.create(invoice);
 				})
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro não encontrado!"));

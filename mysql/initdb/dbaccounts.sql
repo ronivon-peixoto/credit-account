@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
 
 --
--- 
+-- MODELO DA APLICAÇÃO
 --
 drop table if exists account;
 drop table if exists card;
@@ -91,7 +91,7 @@ alter table transaction
 --
 -- TESTES
 --
-
+/*
 INSERT INTO `card` (id, card_number, is_active) VALUES (1, "0123456789101112", "S");
 
 INSERT INTO `account` (id, credit_limit, doc_number, is_active, withdrawal_limit, invoice_closing_day, card_id) 
@@ -111,6 +111,6 @@ INSERT INTO `transaction` (id, amount, description, event_date, operation_type, 
 
 INSERT INTO `invoice_has_transactions` (invoice_id, transaction_id) VALUES (1, 1);
 INSERT INTO `invoice_has_transactions` (invoice_id, transaction_id) VALUES (1, 2);
-#INSERT INTO `invoice_has_transactions` (invoice_id, transaction_id) VALUES (1, 3);
-
+INSERT INTO `invoice_has_transactions` (invoice_id, transaction_id) VALUES (1, 3);
+*/
 

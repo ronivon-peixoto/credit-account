@@ -41,6 +41,7 @@ public class AccountService {
 				.docNumber(form.getDocNumber())
 				.creditLimit(form.getCreditLimit())
 				.withdrawalLimit(form.getWithdrawalLimit())
+				.invoiceClosingDay(form.getInvoiceClosingDay())
 				.isActive(Boolean.TRUE)
 				.card(cardRepository.save(card))
 				.build();

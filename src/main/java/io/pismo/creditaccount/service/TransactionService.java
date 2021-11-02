@@ -64,7 +64,7 @@ public class TransactionService {
 		} else if (TransactionType.PAGAMENTO.equals(form.getType())) {
 			processPayment(form);
 		} else {
-			throw new IllegalArgumentException("Tipo de transação não suportado.");
+			throw new BusinessException("Tipo de transação não suportado.");
 		}
 	}
 

@@ -16,6 +16,7 @@ import io.pismo.creditaccount.model.enums.InvoiceStatus;
 import io.pismo.creditaccount.model.enums.TransactionType;
 import io.pismo.creditaccount.model.repository.InvoiceRepository;
 import io.pismo.creditaccount.model.repository.TransactionRepository;
+import io.pismo.creditaccount.rest.exception.BusinessException;
 import io.pismo.creditaccount.utils.RandomUtil;
 import lombok.AllArgsConstructor;
 
@@ -34,10 +35,10 @@ public class InvoiceService {
 	}
 
 	@Transactional
-	public Invoice processInvoicesByAccount(Account account) {
+	public Invoice processInvoiceByAccount(Account account) {
 		List<Transaction> transactions = transactionRepository.listPendingTransactionsByAccountID(account.getId());
 		if (transactions.isEmpty()) {
-			return null;
+			throw new BusinessException("Nenhuma transação encontrada.");
 		}
 
 		BigDecimal lancamentosFatura = transactions.stream().map(Transaction::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);

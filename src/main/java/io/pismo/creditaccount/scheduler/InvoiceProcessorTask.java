@@ -25,7 +25,7 @@ public class InvoiceProcessorTask {
 		accountService.listByInvoiceClosingDay(LocalDate.now().getDayOfMonth()).forEach(account -> {
 			try {
 				log.info("Starting account processing :: " + account.getId());
-				invoiceService.processInvoicesByAccount(account);
+				invoiceService.processInvoiceByAccount(account);
 			} catch (Exception e) {
 				log.error("Unexpected error processing account :: " + account.getId(), e);
 			} finally {
