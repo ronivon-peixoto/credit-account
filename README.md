@@ -82,17 +82,19 @@ docker-compose up -d
 #### [ POST ] /v1/accounts
 Este endpoint é responsável pela criação da conta/cartão do usuário.
 
+Request Body
 ```json
-{ // Request Body
+{
   "docNumber": "29645636086",
   "creditLimit": 10000.00,
   "withdrawalLimit": 1000.00,
   "invoiceClosingDay": 15
 }
  ```
- 
+
+Response Body
 ```json
-{ // Response Body
+{
   "id": 1,
   "docNumber": "29645636086",
   "creditLimit": 10000,
@@ -110,8 +112,9 @@ Este endpoint é responsável pela criação da conta/cartão do usuário.
 #### [ GET ] /v1/accounts/1
 Através deste endpoint é possível recuperar os dados da conta/cartão do usuário através do código (ID) da conta.
 
+Response Body
 ```json
-Response Body {
+{
   "id": 1,
   "docNumber": "29645636086",
   "creditLimit": 10000,
@@ -132,8 +135,9 @@ Response Body {
 #### [ GET ] /v1/invoices/process-account/1
 Através deste endpoint é possível chamar a rotina de processamento das transações e geração da fatura. Esta mesma rotina possui um agendamento para execução diária, à 00:00h .
 
+Response Body
 ```json
-Response Body {
+{
   "id": 1,
   "status": "AGUARDANDO_PAGAMENTO",
   "invoiceNumber": "5157777594808025",
@@ -168,8 +172,9 @@ Response Body {
 #### [ GET ] /v1/invoices/1
 Este endpoint recupera os dados da fatura, através do código (ID).
 
+Response Body
  ```json
-Response Body {
+{
   "id": 1,
   "status": "PAGO_TOTALMENTE",
   "invoiceNumber": "5157777594808025",
@@ -214,8 +219,9 @@ Response Body {
 #### [ POST ] /v1/transactions
 Através deste endpoint é possível criar diversos tipos de transações.
 
+Request Body
 ```json
-Request Body {
+{
   "type": "COMPRA_PARCELADA",
   "cardNumber": "5100921398143993",
   "amount": 912.85,
@@ -223,27 +229,30 @@ Request Body {
   "installments": 4
 }
  ```
- 
+
+Request Body
 ```json
-Request Body {
+{
   "type": "COMPRA_A_VISTA",
   "cardNumber": "5100921398143993",
   "amount": 150.00,
   "description": "ACADEMIA XYZ"
 }
  ```
- 
+
+Request Body
 ```json
-Request Body {
+{
   "type": "SAQUE",
   "cardNumber": "5100921398143993",
   "amount": 1000.00,
   "description": "Saque Banco 24h"
 }
  ```
- 
+
+Request Body
 ```json
-Request Body {
+{
   "type": "PAGAMENTO",
   "invoiceNumber": "5157777594808025",
   "amount": 1328.21,
@@ -254,8 +263,9 @@ Request Body {
 #### [ GET ] /v1/transactions/1
 Este endpoint recupera os dados da transação através do código.
 
+Response Body
 ```json
-Response Body {
+{
   "id": 1,
   "type": "COMPRA_PARCELADA",
   "description": "LIVRARIA XYZ  (1/4)",
