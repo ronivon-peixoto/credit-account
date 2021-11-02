@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import io.pismo.creditaccount.data.vo.InvoiceVO;
+import io.pismo.creditaccount.model.entity.Invoice;
+import io.pismo.creditaccount.service.AccountService;
 import io.pismo.creditaccount.service.InvoiceService;
 import lombok.AllArgsConstructor;
 
@@ -17,11 +19,22 @@ import lombok.AllArgsConstructor;
 public class InvoiceController {
 
 	private final InvoiceService invoiceService;
+	private final AccountService accountService;
 
 	@GetMapping("{id}")
 	public InvoiceVO findById(@PathVariable Long id) {
 		return invoiceService.findById(id)
 				.map(InvoiceVO::create)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro não encontrado!"));
+	}
+
+	@GetMapping("process-account/{accountId}")
+	public InvoiceVO processByAccount(@PathVariable Long accountId) {
+		return accountService.findById(accountId)
+				.map(account -> {
+					Invoice invoice = invoiceService.processInvoicesByAccount(account);
+					return InvoiceVO.create(invoice);
+				})
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro não encontrado!"));
 	}
 

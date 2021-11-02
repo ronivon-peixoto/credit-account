@@ -12,9 +12,15 @@ import org.modelmapper.ModelMapper;
 
 import io.pismo.creditaccount.data.vo.CardVO;
 import io.pismo.creditaccount.model.converter.BooleanToStringConverter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "card")
 public class Card {
@@ -23,7 +29,7 @@ public class Card {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "card_number", nullable = false, length = 16)
+	@Column(name = "card_number", unique = true, nullable = false, length = 16)
 	private String cardNumber;
 
 	@Convert(converter = BooleanToStringConverter.class)

@@ -26,6 +26,12 @@ public class AppExceptionHandler {
         return new ApiErrors(messages);
     }
 
+    @ExceptionHandler({ BusinessException.class })
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ApiErrors handleBusinessException(BusinessException ex) {
+        return new ApiErrors(ex.getMessage());
+    }
+
     @ExceptionHandler({ ResponseStatusException.class })
     public ResponseEntity<ApiErrors> handleResponseStatusException(ResponseStatusException ex) {
         return new ResponseEntity<>(new ApiErrors(ex.getReason()), ex.getStatus());

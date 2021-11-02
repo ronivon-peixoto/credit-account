@@ -40,6 +40,12 @@ public class TransactionValidator implements ConstraintValidator<TransactionVali
 			retorno = Boolean.FALSE;
 		}
 
+		// DESCRIPTION
+		if (form.getDescription() != null && form.getDescription().length() > 50) {
+			addConstraintViolation("O campo description pode conter até 50 caracteres.", context);
+			retorno = Boolean.FALSE;
+		}
+
 		// INSTALLMENTS
 		if (TransactionType.COMPRA_PARCELADA.equals(form.getType())) {
 			if(form.getInstallments() == null || form.getInstallments() <= 1) {

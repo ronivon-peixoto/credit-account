@@ -22,9 +22,15 @@ import org.modelmapper.ModelMapper;
 
 import io.pismo.creditaccount.data.vo.InvoiceVO;
 import io.pismo.creditaccount.model.enums.InvoiceStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "invoice")
 public class Invoice {
@@ -41,7 +47,7 @@ public class Invoice {
 	@Column(name = "invoice_status", nullable = false, length = 20)
 	private InvoiceStatus status;
 
-	@Column(name = "invoice_number", nullable = false, length = 48)
+	@Column(name = "invoice_number", unique = true, nullable = false, length = 16)
 	private String invoiceNumber;
 
 	@Column(name = "payment_due_date", nullable = false, columnDefinition = "DATE")

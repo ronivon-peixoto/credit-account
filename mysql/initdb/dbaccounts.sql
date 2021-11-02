@@ -5,14 +5,15 @@
 --
 drop table if exists account;
 drop table if exists card;
-drop table if exists invoice_has_transactions;
 drop table if exists invoice;
+drop table if exists invoice_has_transactions;
 drop table if exists transaction;
 
 create table account (
    id bigint not null auto_increment,
     credit_limit decimal(15,2) not null,
     doc_number varchar(11) not null,
+    invoice_closing_day integer not null,
     is_active varchar(1) not null,
     withdrawal_limit decimal(15,2) not null,
     card_id bigint not null,
@@ -28,7 +29,7 @@ create table card (
 
 create table invoice (
    id bigint not null auto_increment,
-    invoice_number varchar(48) not null,
+    invoice_number varchar(16) not null,
     payment_due decimal(15,2) not null,
     payment_due_date DATE not null,
     invoice_status varchar(20) not null,
@@ -44,12 +45,18 @@ create table invoice_has_transactions (
 create table transaction (
    id bigint not null auto_increment,
     amount decimal(15,2) not null,
-    description varchar(45) not null,
+    description varchar(100) not null,
     event_date TIMESTAMP not null,
     operation_type varchar(20) not null,
     account_id bigint not null,
     primary key (id)
 ) engine=InnoDB;
+
+alter table card 
+   add constraint UK_by1nk98m2hq5onhl68bo09sc1 unique (card_number);
+
+alter table invoice 
+   add constraint UK_t6xkdjx1qtd5whp2iljdfn2yj unique (invoice_number);
 
 alter table invoice_has_transactions 
    add constraint UK_qb0ka332unj3ji2woxmairea6 unique (transaction_id);
@@ -87,19 +94,23 @@ alter table transaction
 
 INSERT INTO `card` (id, card_number, is_active) VALUES (1, "0123456789101112", "S");
 
-INSERT INTO `account` (id, credit_limit, doc_number, is_active, withdrawal_limit, card_id) 
-	VALUES(1, 0.0, "12345678900", "S", 0.0, 1);
+INSERT INTO `account` (id, credit_limit, doc_number, is_active, withdrawal_limit, invoice_closing_day, card_id) 
+	VALUES(1, 10000.0, "62585403092", "S", 1000.0, 2, 1);
 
 INSERT INTO `invoice` (id, invoice_number, payment_due, payment_due_date, invoice_status, account_id) 
-	VALUES (1, "321654987159548785874585632165498715954878", 0.0, CURRENT_DATE(), "AGUARDANDO_PAGAMENTO", 1);
+	VALUES (1, "5487858745856321", 109.34, CURRENT_DATE(), "AGUARDANDO_PAGAMENTO", 1);
 
 INSERT INTO `transaction` (id, amount, description, event_date, operation_type, account_id) 
-	VALUES (1, 0.0, "Supermercado XYZ", CURRENT_TIMESTAMP(), "COMPRA_A_VISTA", 1);
+	VALUES (1, -90.89, "Supermercado XYZ", CURRENT_TIMESTAMP(), "COMPRA_A_VISTA", 1);
 
 INSERT INTO `transaction` (id, amount, description, event_date, operation_type, account_id) 
-	VALUES (2, 0.0, "Academia XYZ", CURRENT_TIMESTAMP(), "COMPRA_A_VISTA", 1);
+	VALUES (2, -18.45, "Academia XYZ", CURRENT_TIMESTAMP(), "COMPRA_A_VISTA", 1);
+
+INSERT INTO `transaction` (id, amount, description, event_date, operation_type, account_id) 
+	VALUES (3, -50.00, "SAQUE", CURRENT_TIMESTAMP(), "SAQUE", 1);
 
 INSERT INTO `invoice_has_transactions` (invoice_id, transaction_id) VALUES (1, 1);
 INSERT INTO `invoice_has_transactions` (invoice_id, transaction_id) VALUES (1, 2);
+#INSERT INTO `invoice_has_transactions` (invoice_id, transaction_id) VALUES (1, 3);
 
 

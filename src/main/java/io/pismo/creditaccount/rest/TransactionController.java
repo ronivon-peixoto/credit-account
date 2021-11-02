@@ -33,8 +33,8 @@ public class TransactionController {
 
 	@PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TransactionVO save(@Valid @RequestBody TransactionFormVO form) {
-        return TransactionVO.create(transactionService.save(form));
+    public void save(@Valid @RequestBody TransactionFormVO form) {
+		transactionService.save(form);
     }
 
 }

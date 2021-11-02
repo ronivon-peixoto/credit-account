@@ -16,9 +16,15 @@ import org.modelmapper.ModelMapper;
 
 import io.pismo.creditaccount.data.vo.AccountVO;
 import io.pismo.creditaccount.model.converter.BooleanToStringConverter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "account")
 public class Account {
@@ -35,6 +41,9 @@ public class Account {
 
 	@Column(name = "withdrawal_limit", nullable = false, precision = 15, scale = 2)
 	private BigDecimal withdrawalLimit;
+
+	@Column(name = "invoice_closing_day", nullable = false)
+	private Integer invoiceClosingDay;
 
 	@OneToOne
 	@JoinColumn(name = "card_id", referencedColumnName = "id", nullable = false)
