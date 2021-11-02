@@ -110,7 +110,7 @@ Response Body
  ```
 
 #### [ GET ] /v1/accounts/1
-Através deste endpoint é possível recuperar os dados da conta/cartão do usuário através do código (ID) da conta.
+Através deste endpoint é possível recuperar os dados da conta/cartão do usuário através do código da conta.
 
 Response Body
 ```json
@@ -128,96 +128,12 @@ Response Body
   "isActive": true
 }
  ```
-
-
-## End-points relacionados com a fatura (invoice)
-
-#### [ GET ] /v1/invoices/process-account/1
-Através deste endpoint é possível chamar a rotina de processamento das transações e geração da fatura. Esta mesma rotina possui um agendamento para execução diária, à 00:00h .
-
-Response Body
-```json
-{
-  "id": 1,
-  "status": "AGUARDANDO_PAGAMENTO",
-  "invoiceNumber": "5157777594808025",
-  "paymentDueDate": "12/11/2021",
-  "paymentDue": 1328.21,
-  "transactions": [
-    {
-      "id": 1,
-      "type": "COMPRA_A_VISTA",
-      "description": "ACADEMIA XYZ",
-      "amount": -100,
-      "eventDate": "02/11/2021 18:31:22"
-    },
-    {
-      "id": 2,
-      "type": "COMPRA_PARCELADA",
-      "description": "LIVRARIA XYZ  (1/4)",
-      "amount": -228.21,
-      "eventDate": "02/11/2021 18:35:05"
-    },
-    {
-      "id": 6,
-      "type": "SAQUE",
-      "description": "Saque Banco 24h",
-      "amount": -1000,
-      "eventDate": "02/11/2021 18:47:40"
-    }
-  ]
-}
- ```
-
-#### [ GET ] /v1/invoices/1
-Este endpoint recupera os dados da fatura, através do código (ID).
-
-Response Body
- ```json
-{
-  "id": 1,
-  "status": "PAGO_TOTALMENTE",
-  "invoiceNumber": "5157777594808025",
-  "paymentDueDate": "12/11/2021",
-  "paymentDue": 1328.21,
-  "transactions": [
-    {
-      "id": 1,
-      "type": "COMPRA_A_VISTA",
-      "description": "ACADEMIA XYZ",
-      "amount": -100,
-      "eventDate": "02/11/2021 18:31:22"
-    },
-    {
-      "id": 2,
-      "type": "COMPRA_PARCELADA",
-      "description": "LIVRARIA XYZ  (1/4)",
-      "amount": -228.21,
-      "eventDate": "02/11/2021 18:35:05"
-    },
-    {
-      "id": 6,
-      "type": "SAQUE",
-      "description": "Saque Banco 24h",
-      "amount": -1000,
-      "eventDate": "02/11/2021 18:47:40"
-    },
-    {
-      "id": 7,
-      "type": "PAGAMENTO",
-      "description": "PAGAMENTO TOTAL DA FATURA | PAGAMENTO LOTÉRICA XYZ",
-      "amount": 1328.21,
-      "eventDate": "02/11/2021 18:54:11"
-    }
-  ]
-}
- ```
-
-
-## End-points relacionados com as transações (transaction)
+ 
+ 
+ ## End-points relacionados com as transações (transaction)
 
 #### [ POST ] /v1/transactions
-Através deste endpoint é possível criar diversos tipos de transações.
+Através deste endpoint é possível criar diversos tipos de transações. Dentre os tipos permitidos estão: Compra parcelada, Compra à vista, Saque e Pagamento.
 
 Request Body
 ```json
@@ -261,7 +177,7 @@ Request Body
  ```
  
 #### [ GET ] /v1/transactions/1
-Este endpoint recupera os dados da transação através do código.
+Este endpoint recupera os dados da transação pelo código.
 
 Response Body
 ```json
@@ -271,6 +187,90 @@ Response Body
   "description": "LIVRARIA XYZ  (1/4)",
   "amount": -228.21,
   "eventDate": "02/11/2021 18:35:05"
+}
+ ```
+
+ 
+## End-points relacionados com a fatura (invoice)
+
+#### [ GET ] /v1/invoices/process-account/1
+Através deste endpoint é possível executar a rotina de processamento das transações "em aberto" e geração da fatura. Esta mesma rotina possui um agendamento de execução diária, à 00:00h .
+
+Response Body
+```json
+{
+  "id": 1,
+  "status": "AGUARDANDO_PAGAMENTO",
+  "invoiceNumber": "5157777594808025",
+  "paymentDueDate": "12/11/2021",
+  "paymentDue": 1328.21,
+  "transactions": [
+    {
+      "id": 1,
+      "type": "COMPRA_A_VISTA",
+      "description": "ACADEMIA XYZ",
+      "amount": -100,
+      "eventDate": "02/11/2021 18:31:22"
+    },
+    {
+      "id": 2,
+      "type": "COMPRA_PARCELADA",
+      "description": "LIVRARIA XYZ  (1/4)",
+      "amount": -228.21,
+      "eventDate": "02/11/2021 18:35:05"
+    },
+    {
+      "id": 6,
+      "type": "SAQUE",
+      "description": "Saque Banco 24h",
+      "amount": -1000,
+      "eventDate": "02/11/2021 18:47:40"
+    }
+  ]
+}
+ ```
+
+#### [ GET ] /v1/invoices/1
+Este endpoint recupera os dados da fatura, através do código.
+
+Response Body
+ ```json
+{
+  "id": 1,
+  "status": "PAGO_TOTALMENTE",
+  "invoiceNumber": "5157777594808025",
+  "paymentDueDate": "12/11/2021",
+  "paymentDue": 1328.21,
+  "transactions": [
+    {
+      "id": 1,
+      "type": "COMPRA_A_VISTA",
+      "description": "ACADEMIA XYZ",
+      "amount": -100,
+      "eventDate": "02/11/2021 18:31:22"
+    },
+    {
+      "id": 2,
+      "type": "COMPRA_PARCELADA",
+      "description": "LIVRARIA XYZ  (1/4)",
+      "amount": -228.21,
+      "eventDate": "02/11/2021 18:35:05"
+    },
+    {
+      "id": 6,
+      "type": "SAQUE",
+      "description": "Saque Banco 24h",
+      "amount": -1000,
+      "eventDate": "02/11/2021 18:47:40"
+    },
+    {
+      "id": 7,
+      "type": "PAGAMENTO",
+      "description": "PAGAMENTO TOTAL DA FATURA | PAGAMENTO LOTÉRICA XYZ",
+      "amount": 1328.21,
+      "eventDate": "02/11/2021 18:54:11"
+    }
+  ]
 }
  ```
 
