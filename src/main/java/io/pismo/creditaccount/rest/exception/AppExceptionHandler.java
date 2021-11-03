@@ -23,17 +23,17 @@ public class AppExceptionHandler {
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return new ApiErrors(messages);
+        return new ApiErrors(HttpStatus.BAD_REQUEST, messages);
     }
 
     @ExceptionHandler({ BusinessException.class })
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ApiErrors handleBusinessException(BusinessException ex) {
-        return new ApiErrors(ex.getMessage());
+        return new ApiErrors(HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage());
     }
 
     @ExceptionHandler({ ResponseStatusException.class })
     public ResponseEntity<ApiErrors> handleResponseStatusException(ResponseStatusException ex) {
-        return new ResponseEntity<>(new ApiErrors(ex.getReason()), ex.getStatus());
+        return new ResponseEntity<>(new ApiErrors(ex.getStatus(), ex.getReason()), ex.getStatus());
     }
 }
