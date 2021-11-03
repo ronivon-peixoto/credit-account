@@ -75,7 +75,7 @@ public class TransactionService {
 		if (Boolean.FALSE.equals(account.getIsActive()) || Boolean.FALSE.equals(account.getCard().getIsActive())) {
 			throw new BusinessException(CONTA_INATIVA);
 		}
-		BigDecimal limiteCreditoUtilizado = transactionRepository.calcularLimiteCreditoUtilizado(account.getId());
+		BigDecimal limiteCreditoUtilizado = transactionRepository.calculateUsedCreditLimit(account.getId());
 		if (account.getCreditLimit().subtract(limiteCreditoUtilizado).compareTo(form.getAmount()) < 0) {
 			throw new BusinessException(LIMITE_CREDITO_EXCEDIDO);
 		}
@@ -97,7 +97,7 @@ public class TransactionService {
 		if (Boolean.FALSE.equals(account.getIsActive()) || Boolean.FALSE.equals(account.getCard().getIsActive())) {
 			throw new BusinessException(CONTA_INATIVA);
 		}
-		BigDecimal limiteCreditoUtilizado = transactionRepository.calcularLimiteCreditoUtilizado(account.getId());
+		BigDecimal limiteCreditoUtilizado = transactionRepository.calculateUsedCreditLimit(account.getId());
 		if (account.getCreditLimit().subtract(limiteCreditoUtilizado).compareTo(form.getAmount()) < 0) {
 			throw new BusinessException(LIMITE_CREDITO_EXCEDIDO);
 		}
@@ -124,8 +124,8 @@ public class TransactionService {
 		if (Boolean.FALSE.equals(account.getIsActive()) || Boolean.FALSE.equals(account.getCard().getIsActive())) {
 			throw new BusinessException(CONTA_INATIVA);
 		}
-		BigDecimal limiteCreditoUtilizado = transactionRepository.calcularLimiteCreditoUtilizado(account.getId());
-		BigDecimal limiteSaqueUtilizado = transactionRepository.calcularLimiteSaqueUtilizado(account.getId());
+		BigDecimal limiteCreditoUtilizado = transactionRepository.calculateUsedCreditLimit(account.getId());
+		BigDecimal limiteSaqueUtilizado = transactionRepository.calculateUsedWithdrawalLimit(account.getId());
 		if (account.getCreditLimit().subtract(limiteCreditoUtilizado).compareTo(form.getAmount()) < 0) {
 			throw new BusinessException(LIMITE_CREDITO_EXCEDIDO);
 		} else if (account.getWithdrawalLimit().subtract(limiteSaqueUtilizado).compareTo(form.getAmount()) < 0) {

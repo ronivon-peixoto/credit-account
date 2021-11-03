@@ -9,9 +9,9 @@ import io.pismo.creditaccount.model.entity.Transaction;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-	BigDecimal calcularLimiteCreditoUtilizado(Long accountId);
+	BigDecimal calculateUsedCreditLimit(Long accountId);
 
-	BigDecimal calcularLimiteSaqueUtilizado(Long accountId);
+	BigDecimal calculateUsedWithdrawalLimit(Long accountId);
 
 	List<Transaction> listPendingTransactionsByAccountID(Long accountId);
 
