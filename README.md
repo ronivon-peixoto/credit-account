@@ -58,7 +58,7 @@ Detalhes da tabela "transaction":
 
 ## Sobre o diretório "/mysql"
 O diretório "/mysql" presente na raiz do projeto possui 2 sub-diretórios.
-* (initdb) Contém um arquivo "dbclientes.sql" para criação da tabela e inserção da carga inicial dos dados.
+* (initdb) Contém um arquivo "dbaccounts.sql" para criação da tabela e inserção da carga inicial dos dados.
 * (storage) Poderá ser referenciado como "volume" pelo container do MySQL.
 
 ## Sobre o arquivo "Dockerfile"
