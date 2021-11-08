@@ -28,7 +28,7 @@ public class AccountController {
 	public AccountVO findById(@PathVariable Long id) {
 		return accountService.findById(id)
 				.map(AccountVO::create)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro não encontrado!"));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Record not found!"));
 	}
 
 	@PostMapping

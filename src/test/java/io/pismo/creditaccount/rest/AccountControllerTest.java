@@ -168,6 +168,8 @@ class AccountControllerTest {
 				.andExpect(jsonPath("$.card.id", is(CARD_ID.intValue())))
 				.andExpect(jsonPath("$.card.cardNumber", is(CARD_NUMBER)))
 				.andExpect(jsonPath("$.card.isActive", is(CARD_IS_ACTIVE)));
+
+		verify(accountService, times(1)).save(any(AccountFormVO.class));
 	}
 
 }

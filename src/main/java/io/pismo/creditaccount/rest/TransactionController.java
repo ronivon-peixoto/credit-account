@@ -28,7 +28,7 @@ public class TransactionController {
 	public TransactionVO findById(@PathVariable Long id) {
 		return transactionService.findById(id)
 				.map(TransactionVO::create)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro não encontrado!"));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Record not found!"));
 	}
 
 	@PostMapping

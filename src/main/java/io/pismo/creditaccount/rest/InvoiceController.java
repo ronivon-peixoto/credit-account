@@ -25,7 +25,7 @@ public class InvoiceController {
 	public InvoiceVO findById(@PathVariable Long id) {
 		return invoiceService.findById(id)
 				.map(InvoiceVO::create)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro não encontrado!"));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Record not found!"));
 	}
 
 	@GetMapping("process-account/{accountId}")
@@ -35,7 +35,7 @@ public class InvoiceController {
 					Invoice invoice = invoiceService.processInvoiceByAccount(account);
 					return InvoiceVO.create(invoice);
 				})
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro não encontrado!"));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Record not found!"));
 	}
 
 }
