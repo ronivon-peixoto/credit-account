@@ -275,6 +275,14 @@ Response Body
  ```
 
 
+## Acessando a base de dados da aplicação através da ferramenta Adminer
+A base de dados da aplicação poderá ser acessada a partir da interface (Adminer): [http://localhost:8081](http://localhost:8081/?server=mysql_db&username=admin&db=dbaccounts)
+
+| Sistema | Servidor | Usuário | Senha | Base de dados |
+| ------ | ------ | ------ | ------ | ------ | 
+| MySQL | mysql_db | admin | admin | dbaccounts |
+
+
 ## Testando a aplicação através do Swagger-UI
 Esta aplicação poderá ser testada a partir da interface (Swagger UI): [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 

@@ -119,9 +119,9 @@ class AccountControllerTest {
 				.andExpect(jsonPath("$.status", is(400)))
 				.andExpect(jsonPath("$.errors").isArray())
 				.andExpect(jsonPath("$.errors", hasSize(3)))
-				.andExpect(jsonPath("$.errors", hasItem("O campo creditLimit é obrigatório.")))
-				.andExpect(jsonPath("$.errors", hasItem("O campo withdrawalLimit é obrigatório.")))
-				.andExpect(jsonPath("$.errors", hasItem("O campo invoiceClosingDay é obrigatório.")));
+				.andExpect(jsonPath("$.errors", hasItem("The credit limit is required.")))
+				.andExpect(jsonPath("$.errors", hasItem("The withdrawal limit is required.")))
+				.andExpect(jsonPath("$.errors", hasItem("The invoice closing day is required.")));
 
 		verify(accountService, times(0)).save(any(AccountFormVO.class));
 	}

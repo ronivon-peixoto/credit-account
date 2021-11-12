@@ -13,7 +13,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = { TransactionValidator.class })
 public @interface TransactionValidate {
 
-	String message() default "Os dados da transação estão inválidos.";
+	String message() default "Invalid transaction!";
 
 	Class<?>[] groups() default {};
 
