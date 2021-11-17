@@ -30,8 +30,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @NamedNativeQueries(value = {
-	@NamedNativeQuery(name = "Transaction.calculateUsedCreditLimit", query = "SELECT COALESCE(SUM(t.amount),0) FROM transaction t LEFT JOIN invoice_has_transactions iht ON iht.transaction_id = t.id LEFT JOIN invoice i ON i.id = iht.invoice_id WHERE (iht.invoice_id IS NULL OR i.invoice_status = 'AGUARDANDO_PAGAMENTO') AND t.account_id = ?1"),
-	@NamedNativeQuery(name = "Transaction.calculateUsedWithdrawalLimit", query = "SELECT COALESCE(SUM(t.amount),0) FROM transaction t LEFT JOIN invoice_has_transactions iht ON iht.transaction_id = t.id LEFT JOIN invoice i ON i.id = iht.invoice_id WHERE (iht.invoice_id IS NULL OR i.invoice_status = 'AGUARDANDO_PAGAMENTO') AND t.operation_type = 'SAQUE' AND t.account_id = ?1"),
+	@NamedNativeQuery(name = "Transaction.calculateUsedCreditLimit", query = "SELECT ABS(COALESCE(SUM(t.amount),0)) FROM transaction t LEFT JOIN invoice_has_transactions iht ON iht.transaction_id = t.id LEFT JOIN invoice i ON i.id = iht.invoice_id WHERE (iht.invoice_id IS NULL OR i.invoice_status = 'AGUARDANDO_PAGAMENTO') AND t.account_id = ?1"),
+	@NamedNativeQuery(name = "Transaction.calculateUsedWithdrawalLimit", query = "SELECT ABS(COALESCE(SUM(t.amount),0)) FROM transaction t LEFT JOIN invoice_has_transactions iht ON iht.transaction_id = t.id LEFT JOIN invoice i ON i.id = iht.invoice_id WHERE (iht.invoice_id IS NULL OR i.invoice_status = 'AGUARDANDO_PAGAMENTO') AND t.operation_type = 'SAQUE' AND t.account_id = ?1"),
 	@NamedNativeQuery(name = "Transaction.listPendingTransactionsByAccountID", query = "SELECT t.id, t.account_id, t.operation_type, t.description, t.amount, t.event_date FROM transaction t LEFT JOIN invoice_has_transactions iht ON iht.transaction_id = t.id WHERE iht.invoice_id IS NULL AND t.event_date <= CURRENT_TIMESTAMP() AND t.account_id = ?1", resultClass = Transaction.class),
 })
 @Entity

@@ -58,7 +58,7 @@ public class TransactionValidator implements ConstraintValidator<TransactionVali
 		}
 
 		// AMOUNT
-		if (form.getAmount() == null || form.getAmount().equals(BigDecimal.ZERO)) {
+		if (form.getAmount() == null || form.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
 			addConstraintViolation("The amount is required.", context);
 			retorno = Boolean.FALSE;
 		}
